@@ -2,22 +2,21 @@ import "./styles.css";
 import { useEffect, useState } from "react";
 
 export default function App() {
-  //const api = "https://jsonplaceholder.typicode.com/users";
+  // const api = "https://jsonplaceholder.typicode.com/users";
   const [singleUser, setSingleUser] = useState(false);
   const [user, setUser] = useState([]);
   const [api, SetApi] = useState("https://jsonplaceholder.typicode.com/users");
   const [rowValue, setRowValue] = useState(1);
-  const [userCopy, setUserCopy] = useState(user);
+  const [userCopy, setUserCopy] = useState([]);
 
   useEffect(() => {
     (async () => {
       const userData = await fetch(api);
       const userJson = await userData.json();
-      //console.log(userJson + "..........");
       if (Array.isArray(userJson)) {
         setSingleUser(false);
         setUser(userJson);
-        setUserCopy(user);
+        setUserCopy(userJson);
       } else {
         setSingleUser(true);
         setUser([userJson]);
@@ -25,24 +24,31 @@ export default function App() {
     })();
   }, [api]);
   useEffect(() => {
-    console.log(userCopy + "1111111111111");
-    const temp = userCopy.slice(0, Number(rowValue));
-    //console.log("rowValue" + rowValue);
-    console.log(temp + "22222222");
-    setUser(temp);
+    if (rowValue) {
+      const temp = userCopy.slice(0, Number(rowValue));
+      console.log("rowValue" + rowValue);
+      console.log(temp + "temp");
+      setUser(temp);
+    } else {
+      setUser(userCopy);
+    }
   }, [rowValue]);
   const handleDelete = (e) => {
     const idx = Number(e.target.id);
-    //console.log(idx);
     const filterUser = user.filter((userObj) => {
       return Number(userObj.id) !== idx;
     });
-    //console.log(filterUser + ".......");
     setUser(filterUser);
   };
+  const resetHandler = () => {
+    console.log("Reset Handler Called");
+    SetApi("https://jsonplaceholder.typicode.com/users");
+    setRowValue(undefined);
+  };
+
   const handleOpen = (id) => {
-    //console.log("sdssdsdsd", id);
-    // console.log(`${api}/${id}`);
+    console.log("handleOpen id> ", id);
+    console.log(`${api}/${id}`);
     SetApi(`${api}/${id}`);
   };
   const handleName = () => {
@@ -64,18 +70,15 @@ export default function App() {
       <div>
         <button onClick={handleEmail}>Sort by Email</button>
         <button onClick={handleName}>Sort by Name</button>
+        <span> Select Rows: </span>
         <input
           type="number"
           min="1"
           max="10"
-          value={rowValue}
+          value={rowValue !== undefined ? rowValue : 1}
           onChange={(e) => setRowValue(e.target.value)}
         />
-        <button
-          onClick={() => SetApi("https://jsonplaceholder.typicode.com/users")}
-        >
-          Reset
-        </button>
+        <button onClick={resetHandler}>Reset</button>
       </div>
       <table>
         <thead>
