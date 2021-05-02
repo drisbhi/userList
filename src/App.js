@@ -17,17 +17,18 @@ export default function App() {
       if (Array.isArray(userJson)) {
         setSingleUser(false);
         setUser(userJson);
+        setUserCopy(user);
       } else {
         setSingleUser(true);
         setUser([userJson]);
       }
     })();
-    setUserCopy(user);
   }, [api]);
   useEffect(() => {
+    console.log(userCopy + "1111111111111");
     const temp = userCopy.slice(0, Number(rowValue));
-    console.log("rowValue" + rowValue);
-    console.log(temp);
+    //console.log("rowValue" + rowValue);
+    console.log(temp + "22222222");
     setUser(temp);
   }, [rowValue]);
   const handleDelete = (e) => {
@@ -70,6 +71,11 @@ export default function App() {
           value={rowValue}
           onChange={(e) => setRowValue(e.target.value)}
         />
+        <button
+          onClick={() => SetApi("https://jsonplaceholder.typicode.com/users")}
+        >
+          Reset
+        </button>
       </div>
       <table>
         <thead>
