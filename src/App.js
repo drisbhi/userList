@@ -66,10 +66,14 @@ export default function App() {
     setUser(copyUser);
   };
   return (
-    <div>
-      <div>
-        <button onClick={handleEmail}>Sort by Email</button>
-        <button onClick={handleName}>Sort by Name</button>
+    <div id="m">
+      <div id="main">
+        <button class="pure " onClick={handleEmail}>
+          Sort by Email
+        </button>
+        <button class="pure" onClick={handleName}>
+          Sort by Name
+        </button>
         <span> Select Rows: </span>
         <input
           type="number"
@@ -78,18 +82,22 @@ export default function App() {
           value={rowValue !== undefined ? rowValue : 1}
           onChange={(e) => setRowValue(e.target.value)}
         />
-        <button onClick={resetHandler}>Reset</button>
+        <button class="pure " onClick={resetHandler}>
+          Reset
+        </button>
       </div>
-      <table>
+      <table class="timecard">
         <thead>
-          <tr>
+          <tr class="odd">
             <th>Name</th>
-            <th>username</th>
-            <th>email</th>
-            <th>address</th>
-            <th>phone</th>
-            <th>website</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Website</th>
             <th>Company</th>
+            <th>Open</th>
+            <th>Delete</th>
           </tr>
         </thead>
         <tbody>
@@ -97,7 +105,7 @@ export default function App() {
             user.map((userObj) => {
               //console.log(userObj);
               return (
-                <tr key={userObj.id}>
+                <tr key={userObj.id} class="odd">
                   <td>{userObj.name}</td>
                   <td>{userObj.username}</td>
                   <td>{userObj.email}</td>
@@ -110,13 +118,18 @@ export default function App() {
                       <button
                         onClick={() => handleOpen(userObj.id)}
                         id={userObj.id}
+                        class="pure-button "
                       >
                         Open
                       </button>
                     ) : null}
                   </td>
                   <td>
-                    <button onClick={handleDelete} id={userObj.id}>
+                    <button
+                      class="pure-button "
+                      onClick={handleDelete}
+                      id={userObj.id}
+                    >
                       Delete
                     </button>
                   </td>

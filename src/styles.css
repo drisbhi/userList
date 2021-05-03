@@ -1,4 +1,45 @@
-.App {
-  font-family: sans-serif;
-  text-align: center;
+#main {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.timecard {
+  margin: auto;
+  width: 600px;
+  border-collapse: collapse;
+  border: 1px solid #fff; /*for older IE*/
+  border-style: hidden;
+}
+
+table.timecard tr.odd {
+  background-color: #fde9d9;
+}
+th,
+td {
+  padding: 15px;
+  text-align: left;
+}
+table,
+td,
+th {
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.pure-button {
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: rgb(223, 117, 20);
+}
+.pure {
+  color: white;
+  border-radius: 4px;
+  background: rgb(66, 184, 221);
+  margin: 10px;
 }
